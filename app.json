@@ -1,0 +1,58 @@
+{
+  "expo": {
+    "name": "NatureDailyNew1766060820852",
+    "slug": "nature-dairy-1766060892029",
+    "owner": "prathams1188",
+    "version": "1.0.1",
+    "orientation": "portrait",
+    "icon": "./assets/nature_logo.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./assets/nature_logo.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "bundleIdentifier": "com.masterzac.naturedaily",
+      "buildNumber": "2",
+      "supportsTablet": true,
+      "infoPlist": {
+        "ITSAppUsesNonExemptEncryption": false,
+        "LSApplicationQueriesSchemes": [
+          "phonepe",
+          "tez",
+          "paytmmp",
+          "bhim",
+          "credpay"
+        ]
+      }
+    },
+    "android": {
+      "package": "com.masterzac.myapp",
+      "versionCode": 5,
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/nature_logo.png",
+        "backgroundColor": "#FFFFFF"
+      },
+      "softwareKeyboardLayoutMode": "pan",
+      "permissions": []
+    },
+    "plugins": [
+      "expo-splash-screen"
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "73dd55b3-7c41-4bf6-a66e-15a90c2b8861"
+      }
+    },
+    "runtimeVersion": "1.0.0",
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
+    "newArchEnabled": false,
+    "jsEngine": "hermes"
+  }
+}
