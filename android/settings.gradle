@@ -1,6 +1,18 @@
+pluginManagement {
+    def rnRoot = new File(["node", "--print", "require.resolve('react-native/package.json')"].execute(null, rootDir).text.trim()).getParentFile().getAbsolutePath()
+    
+    includeBuild("${rnRoot}/packages/react-native-gradle-plugin")
+    
+    repositories {
+        gradlePluginPortal()
+        google()
+        mavenCentral()
+    }
+}
+
 rootProject.name = 'NatureDailyNew1766060820852'
 
-apply from: new File(["node", "--print", "require.resolve('expo/package.json')"].execute(null, rootProject.projectDir).text.trim(), "../scripts/autolinking.gradle")
+apply from: new File(["node", "--print", "require.resolve('expo/package.json')"].execute(null, rootDir).text.trim(), "../scripts/autolinking.gradle")
 useExpoModules()
 
 include ':app'
