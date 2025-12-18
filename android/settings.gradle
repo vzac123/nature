@@ -1,7 +1,16 @@
 pluginManagement {
     def rnRoot = new File(["node", "--print", "require.resolve('react-native/package.json')"].execute(null, rootDir).text.trim()).getParentFile().getAbsolutePath()
     
-    includeBuild("${rnRoot}/packages/react-native-gradle-plugin")
+    // Try the new location first (RN 0.74+)
+    def rnGradlePlugin = new File("${rnRoot}/packages/react-native-gradle-plugin")
+    if (!rnGradlePlugin.exists()) {
+        // Fallback to old location
+        rnGradlePlugin = new File(["node", "--print", "require.resolve('@react-native/gradle-plugin/package.json')"].execute(null, rootDir).text.trim()).getParentFile()
+    }
+    
+    if (rnGradlePlugin.exists()) {
+        includeBuild(rnGradlePlugin)
+    }
     
     repositories {
         gradlePluginPortal()
