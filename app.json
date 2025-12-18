@@ -12,9 +12,7 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "bundleIdentifier": "com.masterzac.naturedaily",
       "buildNumber": "2",
@@ -40,19 +38,14 @@
       "softwareKeyboardLayoutMode": "pan",
       "permissions": []
     },
-    "plugins": [
-      "expo-splash-screen"
-    ],
+    "plugins": ["expo-splash-screen"],
     "extra": {
-      "eas": {
-        "projectId": "73dd55b3-7c41-4bf6-a66e-15a90c2b8861"
-      }
+      "eas": {}
     },
     "runtimeVersion": "1.0.0",
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "newArchEnabled": false,
     "jsEngine": "hermes"
   }
 }
