@@ -1,0 +1,6 @@
+rootProject.name = 'NatureDailyNew1766060820852'
+
+apply from: new File(["node", "--print", "require.resolve('expo/package.json')"].execute(null, rootProject.projectDir).text.trim(), "../scripts/autolinking.gradle")
+useExpoModules()
+
+include ':app'
