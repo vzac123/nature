@@ -17,10 +17,10 @@ android {
     buildToolsVersion rootProject.ext.buildToolsVersion
     compileSdk 35
 
-    namespace 'com.prathamzplus.naturedairy'
+    namespace 'com.masterzac.myapp'
 
     defaultConfig {
-        applicationId 'com.prathamzplus.naturedairy'
+        applicationId 'com.masterzac.myapp'
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion 35
         versionCode 6
