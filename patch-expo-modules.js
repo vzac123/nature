@@ -20,23 +20,25 @@ const filePath = path.join(
 console.log('Patching expo-modules-core PermissionsService.kt...');
 
 try {
+  if (!fs.existsSync(filePath)) {
+    console.log('⚠️  File not found yet, will patch on next install');
+    process.exit(0);
+  }
+
   let content = fs.readFileSync(filePath, 'utf8');
   
-  // Fix line 166: Change permissions[i] to permissions?.get(i) or permissions!![i]
-  // The issue is accessing a nullable array without safe call
-  const originalLine = 'permissions[i]';
-  const fixedLine = 'permissions!![i]';
+  // Replace all instances of permissions[i] with permissions!![i]
+  const originalPattern = /permissions\[i\]/g;
+  const replacement = 'permissions!![i]';
   
-  if (content.includes(originalLine)) {
-    content = content.replace(
-      new RegExp('permissions\\[i\\]', 'g'),
-      'permissions!![i]'
-    );
-    
+  if (originalPattern.test(content)) {
+    content = content.replace(originalPattern, replacement);
     fs.writeFileSync(filePath, content, 'utf8');
     console.log('✅ Successfully patched PermissionsService.kt');
+  } else if (content.includes('permissions!![i]')) {
+    console.log('✅ File already patched');
   } else {
-    console.log('⚠️  Could not find the exact pattern to patch');
+    console.log('⚠️  Pattern not found in file');
   }
 } catch (error) {
   console.error('❌ Error patching file:', error.message);
