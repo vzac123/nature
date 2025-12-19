@@ -11,9 +11,7 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.naturedairynew.app"
@@ -23,7 +21,7 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.naturedairynew.app"
+      "package": "com.masterzac.myapp"
     },
     "web": {
       "favicon": "./assets/favicon.png"
@@ -47,7 +45,7 @@
     ],
     "extra": {
       "eas": {
-        "projectId": "your-project-id"
+        "projectId": "d6b5a906-217f-463e-b13d-429f6b6ca336"
       }
     }
   }
