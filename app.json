@@ -14,7 +14,7 @@
     "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.naturedairynew.app"
+      "bundleIdentifier": "com.masterzac.app"
     },
     "android": {
       "adaptiveIcon": {
