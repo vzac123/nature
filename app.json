@@ -38,7 +38,20 @@
       "softwareKeyboardLayoutMode": "pan",
       "permissions": []
     },
-    "plugins": ["expo-splash-screen"],
+    "plugins": [
+      "expo-splash-screen",
+      [
+        "expo-build-properties",
+        {
+          "android": {
+            "kotlinVersion": "1.9.0",
+            "compileSdkVersion": 35,
+            "targetSdkVersion": 35,
+            "buildToolsVersion": "34.0.0"
+          }
+        }
+      ]
+    ],
     "extra": {
       "eas": {
         "projectId": "d6b5a906-217f-463e-b13d-429f6b6ca336"
