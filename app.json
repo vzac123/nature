@@ -1,52 +1,53 @@
 {
   "expo": {
-    "name": "naturedairynew",
-    "slug": "naturedairynew",
-    "version": "1.0.6",
+    "name": "NatureDailyNew1766060820852",
+    "slug": "nature-dairy-1766060892029",
+    "owner": "pratham1188",
+    "version": "1.0.1",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/nature_logo.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/nature_logo.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
     "assetBundlePatterns": ["**/*"],
     "ios": {
+      "bundleIdentifier": "com.masterzac.naturedaily",
+      "buildNumber": "2",
       "supportsTablet": true,
-      "bundleIdentifier": "com.masterzac.app"
+      "infoPlist": {
+        "ITSAppUsesNonExemptEncryption": false,
+        "LSApplicationQueriesSchemes": [
+          "phonepe",
+          "tez",
+          "paytmmp",
+          "bhim",
+          "credpay"
+        ]
+      }
     },
     "android": {
+      "package": "com.masterzac.myapp",
+      "versionCode": 5,
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
+        "foregroundImage": "./assets/nature_logo.png",
+        "backgroundColor": "#FFFFFF"
       },
-      "package": "com.masterzac.myapp"
+      "softwareKeyboardLayoutMode": "pan",
+      "permissions": []
     },
-    "web": {
-      "favicon": "./assets/favicon.png"
-    },
-    "plugins": [
-      [
-        "expo-build-properties",
-        {
-          "android": {
-            "kotlinVersion": "1.8.22",
-            "compileSdkVersion": 35,
-            "targetSdkVersion": 35,
-            "buildToolsVersion": "34.0.0",
-            "extraPropertiesGradle": {
-              "android.suppressUnsupportedCompileSdk": "35",
-              "kotlin.android.compilationWarningsAsErrors": "false"
-            }
-          }
-        }
-      ]
-    ],
+    "plugins": ["expo-splash-screen"],
     "extra": {
       "eas": {
         "projectId": "d6b5a906-217f-463e-b13d-429f6b6ca336"
       }
-    }
+    },
+    "runtimeVersion": "1.0.0",
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
+    "jsEngine": "hermes"
   }
 }
