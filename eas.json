@@ -1,25 +1,29 @@
 {
   "cli": {
-    "version": ">= 8.0.0"
+    "version": ">= 13.2.0",
+    "appVersionSource": "remote"
   },
   "build": {
-    "production": {
-      "environment": "production",
+    "development": {
+      "developmentClient": true,
+      "distribution": "internal",
       "android": {
-        "buildType": "app-bundle"
-      },
-      "env": {
-        "EXPO_DEBUG": "true",
-        "NODE_ENV": "production"
+        "buildType": "apk"
       }
     },
     "preview": {
+      "distribution": "internal",
       "android": {
         "buildType": "apk"
-      },
-      "env": {
-        "EXPO_DEBUG": "true"
+      }
+    },
+    "production": {
+      "android": {
+        "buildType": "app-bundle"
       }
     }
+  },
+  "submit": {
+    "production": {}
   }
 }

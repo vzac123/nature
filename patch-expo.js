@@ -6,25 +6,45 @@ const filePath = path.join(
   'node_modules/expo-modules-core/android/src/main/java/expo/modules/adapters/react/permissions/PermissionsService.kt'
 );
 
-if (fs.existsSync(filePath)) {
-  console.log('Patching expo-modules-core PermissionsService.kt...');
-  
-  let content = fs.readFileSync(filePath, 'utf8');
-  
-  // Fix the problematic line - make permissions nullable and provide fallback
-  content = content.replace(
-    /val missingPermissions = permissions\.filter \{/g,
-    'val missingPermissions = permissions?.filter {'
-  );
-  
-  // Add the null fallback after the closing brace
-  content = content.replace(
-    /(val missingPermissions = permissions\?\.filter \{[\s\S]*?\n    \})/g,
-    '$1 ?: emptyList()'
-  );
-  
-  fs.writeFileSync(filePath, content, 'utf8');
-  console.log('✅ Patch applied successfully!');
-} else {
-  console.log('⚠️  File not found, skipping patch');
+console.log('========================================');
+console.log('EXPO MODULES CORE PATCH SCRIPT');
+console.log('========================================');
+console.log('Looking for file:', filePath);
+
+if (!fs.existsSync(filePath)) {
+  console.log('❌ File not found - skipping patch');
+  process.exit(0);
 }
+
+console.log('✓ File found, reading content...');
+let content = fs.readFileSync(filePath, 'utf8');
+
+// Check if already patched
+if (content.includes('permissions?.filter') || content.includes('?: emptyList()')) {
+  console.log('✓ File already patched - skipping');
+  process.exit(0);
+}
+
+console.log('Applying patch...');
+
+// Find and replace the problematic line
+const originalPattern = /val missingPermissions = permissions\.filter \{[\s\S]*?\n    \}/;
+const match = content.match(originalPattern);
+
+if (!match) {
+  console.log('❌ Could not find pattern to patch');
+  console.log('Looking for: val missingPermissions = permissions.filter {');
+  process.exit(1);
+}
+
+console.log('Found pattern to patch');
+
+// Replace with null-safe version
+content = content.replace(
+  originalPattern,
+  match[0].replace('permissions.filter', 'permissions?.filter') + ' ?: emptyList()'
+);
+
+fs.writeFileSync(filePath, content, 'utf8');
+console.log('✅ Patch applied successfully!');
+console.log('========================================');

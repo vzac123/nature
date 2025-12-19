@@ -2,7 +2,7 @@
   "expo": {
     "name": "NatureDailyNew1766060820852",
     "slug": "nature-dairy-1766060892029",
-    "owner": "prathams1188",
+    "owner": "pratham1188",
     "version": "1.0.1",
     "orientation": "portrait",
     "icon": "./assets/nature_logo.png",
@@ -45,7 +45,7 @@
     ],
     "extra": {
       "eas": {
-        "projectId": "73dd55b3-7c41-4bf6-a66e-15a90c2b8861"
+        "projectId": "d6b5a906-217f-463e-b13d-429f6b6ca336"
       }
     },
     "runtimeVersion": "1.0.0",
