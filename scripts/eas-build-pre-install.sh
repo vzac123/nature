@@ -1,19 +1,19 @@
-#!/usr/bin/env bash
+    #!/usr/bin/env bash
 
-set -euo pipefail
+    set -euo pipefail
 
-echo "🔧 Running pre-install checks..."
+    echo "🔧 Running pre-install checks..."
 
-# Log environment info
-echo "📋 Environment Info:"
-echo "Node version: $(node --version)"
-echo "NPM version: $(npm --version)"
-echo "Working directory: $(pwd)"
+    # Log environment info
+    echo "📋 Environment Info:"
+    echo "Node version: $(node --version)"
+    echo "NPM version: $(npm --version)"
+    echo "Working directory: $(pwd)"
 
-# Verify we have package.json
-if [ ! -f "package.json" ]; then
-    echo "❌ ERROR: package.json not found"
-    exit 1
-fi
+    # Verify we have package.json
+    if [ ! -f "package.json" ]; then
+        echo "❌ ERROR: package.json not found"
+        exit 1
+    fi
 
-echo "✅ Pre-install checks passed"
+    echo "✅ Pre-install checks passed"
