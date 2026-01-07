@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   View,
   Text,
@@ -33,11 +33,15 @@ const ProductDetails = ({ route, navigation }) => {
   // Date picker states
   const [showDatePicker, setShowDatePicker] = useState(false);
 
-  // Set startDate to tomorrow by default
-  const tomorrow = new Date();
-  tomorrow.setDate(tomorrow.getDate() + 1);
-  tomorrow.setHours(0, 0, 0, 0); // Reset time to midnight for consistency
-  const [startDate, setStartDate] = useState(tomorrow);
+  // Initialize with tomorrow's date
+  const getTomorrowDate = () => {
+    const tomorrow = new Date();
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    tomorrow.setHours(0, 0, 0, 0);
+    return tomorrow;
+  };
+
+  const [startDate, setStartDate] = useState(getTomorrowDate());
 
   // Proper serializable user data extraction
   const userId = useSelector((state) => state.auth.userDetails?.id);
@@ -65,6 +69,13 @@ const ProductDetails = ({ route, navigation }) => {
     { value: 'ALTERNATE_DAY', label: 'Alternate Day' },
     { value: 'CUSTOM_DAYS', label: 'Custom Days' },
   ];
+
+  // Update startDate when entering subscribe mode
+  useEffect(() => {
+    if (isSubscribeMode) {
+      setStartDate(getTomorrowDate());
+    }
+  }, [isSubscribeMode]);
 
   const showAlert = (title, message, onDismiss) => {
     Alert.alert(
@@ -99,21 +110,25 @@ const ProductDetails = ({ route, navigation }) => {
 
   const onDateChange = (event, selectedDate) => {
     setShowDatePicker(Platform.OS === 'ios');
+
+    if (event.type === 'dismissed') {
+      return;
+    }
+
     if (selectedDate) {
-      // Ensure selected date is not today
-      const today = new Date();
-      today.setHours(0, 0, 0, 0);
+      // Create a new date object and normalize to local midnight
       const selected = new Date(selectedDate);
       selected.setHours(0, 0, 0, 0);
 
-      // If selected date is today, set it to tomorrow instead
+      // Get today's date at midnight for comparison
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+
+      // If selected date is today or earlier, set it to tomorrow instead
       if (selected <= today) {
-        const tomorrow = new Date();
-        tomorrow.setDate(tomorrow.getDate() + 1);
-        tomorrow.setHours(0, 0, 0, 0);
-        setStartDate(tomorrow);
+        setStartDate(getTomorrowDate());
       } else {
-        setStartDate(selectedDate);
+        setStartDate(selected);
       }
     }
   };
@@ -123,7 +138,11 @@ const ProductDetails = ({ route, navigation }) => {
   };
 
   const formatDate = (date) => {
-    return date.toISOString().split('T')[0]; // YYYY-MM-DD format
+    // Format date as YYYY-MM-DD in local timezone
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
   };
 
   const handleAddToCart = async (selectedFrequency = null) => {
@@ -165,6 +184,8 @@ const ProductDetails = ({ route, navigation }) => {
         }),
       };
 
+      console.log('Cart Data:', cartData);
+
       const res = await httpClient.post(`/api/cart/add`, cartData);
 
       if (res) {
@@ -201,7 +222,7 @@ const ProductDetails = ({ route, navigation }) => {
         userId,
         productId: product.id,
         quantity,
-        frequency: 'ONE_TIME', // Always ONE_TIME for Buy Now
+        frequency: 'ONE_TIME',
       };
 
       const res = await httpClient.post(`/api/cart/add`, cartData);
@@ -236,9 +257,9 @@ const ProductDetails = ({ route, navigation }) => {
 
     if (!isSubscribeMode) {
       setIsSubscribeMode(true);
-      setFrequency('DAILY'); // Default to DAILY when entering subscribe mode
+      setFrequency('DAILY');
+      setStartDate(getTomorrowDate());
     } else {
-      // Already in subscribe mode, add to cart with current frequency
       handleAddToCart();
     }
   };
@@ -265,7 +286,6 @@ const ProductDetails = ({ route, navigation }) => {
     setFrequency(freq);
     setShowFrequencyOptions(false);
 
-    // Show custom days modal if custom days is selected
     if (freq === 'CUSTOM_DAYS') {
       setShowCustomDaysModal(true);
     }
@@ -303,7 +323,6 @@ const ProductDetails = ({ route, navigation }) => {
 
   const closeCustomDaysModal = () => {
     setShowCustomDaysModal(false);
-    // If no days are selected, revert to default frequency
     if (selectedDays.length === 0 && isSubscribeMode) {
       setFrequency('DAILY');
     }
@@ -313,23 +332,17 @@ const ProductDetails = ({ route, navigation }) => {
     setShowCustomDaysModal(false);
   };
 
-  // Function to truncate description
   const truncateDescription = (text, maxLength = 100) => {
     if (!text) return 'No description available';
     if (text.length <= maxLength || showFullDescription) return text;
     return text.substring(0, maxLength) + '...';
   };
 
-  // Check if description needs "Read More" button
   const needsReadMore =
     product.description && product.description.length > 100;
 
-  // Function to get minimum date (tomorrow)
   const getMinimumDate = () => {
-    const tomorrow = new Date();
-    tomorrow.setDate(tomorrow.getDate() + 1);
-    tomorrow.setHours(0, 0, 0, 0);
-    return tomorrow;
+    return getTomorrowDate();
   };
 
   return (
@@ -377,7 +390,6 @@ const ProductDetails = ({ route, navigation }) => {
             )}
           </View>
 
-          {/* Subscribe Mode Frequency Section */}
           {isSubscribeMode && (
             <>
               <View style={styles.subscribeModeHeader}>
@@ -437,15 +449,19 @@ const ProductDetails = ({ route, navigation }) => {
                 )}
               </View>
 
-              {/* Start Date Picker - Always shown in subscribe mode */}
               <View style={styles.dateContainer}>
                 <Text style={styles.dateLabel}>Start Date:</Text>
+
                 <TouchableOpacity
                   style={styles.dateSelector}
                   onPress={showDatepicker}
                 >
                   <Text style={styles.dateValue}>
-                    {startDate.toDateString()}
+                    {startDate.toLocaleDateString('en-GB', {
+                      day: '2-digit',
+                      month: 'short',
+                      year: 'numeric',
+                    })}
                   </Text>
                   <Text style={styles.calendarIcon}>📅</Text>
                 </TouchableOpacity>
@@ -459,7 +475,7 @@ const ProductDetails = ({ route, navigation }) => {
                       Platform.OS === 'ios' ? 'spinner' : 'default'
                     }
                     onChange={onDateChange}
-                    minimumDate={getMinimumDate()} // Set minimum date to tomorrow
+                    minimumDate={getMinimumDate()}
                     style={styles.datePicker}
                   />
                 )}
@@ -794,7 +810,6 @@ const styles = StyleSheet.create({
   selectedFrequencyOptionText: {
     color: '#fff',
   },
-  // Date Picker Styles
   dateContainer: {
     marginVertical: 10,
   },

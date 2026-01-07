@@ -17,6 +17,10 @@ import Subscription from './components/Subscription';
 import Payment from './components/Payment';
 import CashfreePayment from './components/CashfreePayment';
 import CartScreen from './components/CartScreen';
+import TermsAndConditions from './components/TermsAndConditions';
+import PrivacyPolicy from './components/PrivacyPolicy';
+import ShippingPolicy from './components/ShippingPolicy';
+import RefundPolicy from './components/RefundPolicy';
 
 // Screens from separate folders - UPDATED PATHS
 import ExploreScreen from './components/ExploreScreen';
@@ -84,10 +88,22 @@ function App() {
               name='Delivery'
               component={withLayout(DeliveryScheduleForm)}
             />
-            {/* <Stack.Screen
-              name='PaymentS'
-              component={withLayout(Payment)}
-            /> */}
+            <Stack.Screen
+              name='TermsAndConditions'
+              component={withLayout(TermsAndConditions)}
+            />
+            <Stack.Screen
+              name='PrivacyPolicy'
+              component={withLayout(PrivacyPolicy)}
+            />
+            <Stack.Screen
+              name='ShippingPolicy'
+              component={withLayout(ShippingPolicy)}
+            />
+            <Stack.Screen
+              name='RefundPolicy'
+              component={withLayout(RefundPolicy)}
+            />
             {/* <Stack.Screen
               name='Payment'
               component={withLayout(Payment)}

@@ -314,126 +314,426 @@ const ProfileScreen = ({ navigation, onSubmit }) => {
   };
 
   return (
-    <View style={styles.container}>
+    <View style={styles.mainContainer}>
       {loginStatus ? (
-        <ScrollView contentContainerStyle={styles.scrollContainer}>
-          {/* Wallet Balance Section */}
-          <View style={styles.walletBalanceContainer}>
-            <Text style={styles.walletBalanceLabel}>
-              Wallet Balance:
-            </Text>
-            {loadingBalance ? (
-              <ActivityIndicator size='small' color='#28a745' />
-            ) : (
-              <Text style={styles.walletBalanceAmount}>
-                ₹{walletBalance.toFixed(2)}
+        <View style={styles.contentWrapper}>
+          <ScrollView
+            style={styles.scrollView}
+            contentContainerStyle={styles.scrollContainer}
+            showsVerticalScrollIndicator={true}
+          >
+            {/* Wallet Balance Section */}
+            <View style={styles.walletBalanceContainer}>
+              <Text style={styles.walletBalanceLabel}>
+                Wallet Balance:
               </Text>
-            )}
-          </View>
-
-          {/* Add Wallet Balance Button */}
-          <TouchableOpacity
-            style={styles.walletButton}
-            onPress={handleAddWalletBalance}
-          >
-            <Text style={styles.walletButtonText}>
-              Add Wallet Balance
-            </Text>
-          </TouchableOpacity>
-
-          {/* View Subscriptions Button */}
-          <TouchableOpacity
-            style={styles.subscriptionButton}
-            onPress={() => navigation.navigate('Subscription')}
-          >
-            <Text style={styles.subscriptionButtonText}>
-              View Subscriptions
-            </Text>
-          </TouchableOpacity>
-
-          {/* User Info Section */}
-          <View style={styles.infoSection}>
-            <View style={styles.infoBox}>
-              <Text style={styles.label}>Name</Text>
-              <Text style={styles.value}>{userDetails.username}</Text>
-            </View>
-            <View style={styles.infoBox}>
-              <Text style={styles.label}>Email</Text>
-              <Text style={styles.value}>
-                {userDetails.email || 'NA'}
-              </Text>
-            </View>
-            <View style={styles.infoBox}>
-              <Text style={styles.label}>Phone</Text>
-              <Text style={styles.value}>
-                {userDetails.phoneNumber}
-              </Text>
-            </View>
-            <TouchableOpacity
-              style={styles.logoutButton}
-              onPress={() => {
-                dispatch(setLoginFalse());
-                dispatch(setUserDetails({}));
-              }}
-            >
-              <Text style={styles.logoutButtonText}>Log Out</Text>
-            </TouchableOpacity>
-          </View>
-
-          <TouchableOpacity
-            style={styles.addressButton}
-            onPress={() => navigation.navigate('AddressComponent')}
-          >
-            <Text style={styles.addressButtonText}>
-              Manage Address
-            </Text>
-          </TouchableOpacity>
-
-          {/* Delete Account Button */}
-          <TouchableOpacity
-            style={[
-              styles.deleteButton,
-              isDeleting && styles.deleteButtonDisabled,
-            ]}
-            onPress={handleDeleteAccount}
-            disabled={isDeleting}
-          >
-            {isDeleting ? (
-              <ActivityIndicator size='small' color='#fff' />
-            ) : (
-              <>
-                <MaterialIcons
-                  name='delete-outline'
-                  size={20}
-                  color='#fff'
-                  style={styles.deleteIcon}
-                />
-                <Text style={styles.deleteButtonText}>
-                  Delete Account
+              {loadingBalance ? (
+                <ActivityIndicator size='small' color='#28a745' />
+              ) : (
+                <Text style={styles.walletBalanceAmount}>
+                  ₹{walletBalance.toFixed(2)}
                 </Text>
-              </>
-            )}
-          </TouchableOpacity>
+              )}
+            </View>
 
-          {/* Warning Text */}
-          <View style={styles.warningContainer}>
-            <MaterialIcons name='warning' size={16} color='#dc3545' />
-            <Text style={styles.warningText}>
-              Deleting your account will permanently remove all your
-              data including wallet balance and addresses.
-            </Text>
-          </View>
-        </ScrollView>
+            {/* Add Wallet Balance Button */}
+            <TouchableOpacity
+              style={styles.walletButton}
+              onPress={handleAddWalletBalance}
+            >
+              <Text style={styles.walletButtonText}>
+                Add Wallet Balance
+              </Text>
+            </TouchableOpacity>
+
+            {/* View Subscriptions Button */}
+            <TouchableOpacity
+              style={styles.subscriptionButton}
+              onPress={() => navigation.navigate('Subscription')}
+            >
+              <Text style={styles.subscriptionButtonText}>
+                View Subscriptions
+              </Text>
+            </TouchableOpacity>
+
+            {/* User Info Section */}
+            <View style={styles.infoSection}>
+              <View style={styles.infoBox}>
+                <Text style={styles.label}>Name</Text>
+                <Text style={styles.value}>
+                  {userDetails.username}
+                </Text>
+              </View>
+              <View style={styles.infoBox}>
+                <Text style={styles.label}>Email</Text>
+                <Text style={styles.value}>
+                  {userDetails.email || 'NA'}
+                </Text>
+              </View>
+              <View style={styles.infoBox}>
+                <Text style={styles.label}>Phone</Text>
+                <Text style={styles.value}>
+                  {userDetails.phoneNumber}
+                </Text>
+              </View>
+              <TouchableOpacity
+                style={styles.logoutButton}
+                onPress={() => {
+                  dispatch(setLoginFalse());
+                  dispatch(setUserDetails({}));
+                }}
+              >
+                <Text style={styles.logoutButtonText}>Log Out</Text>
+              </TouchableOpacity>
+            </View>
+
+            <TouchableOpacity
+              style={styles.addressButton}
+              onPress={() => navigation.navigate('AddressComponent')}
+            >
+              <Text style={styles.addressButtonText}>
+                Manage Address
+              </Text>
+            </TouchableOpacity>
+
+            {/* Delete Account Button */}
+            <TouchableOpacity
+              style={[
+                styles.deleteButton,
+                isDeleting && styles.deleteButtonDisabled,
+              ]}
+              onPress={handleDeleteAccount}
+              disabled={isDeleting}
+            >
+              {isDeleting ? (
+                <ActivityIndicator size='small' color='#fff' />
+              ) : (
+                <>
+                  <MaterialIcons
+                    name='delete-outline'
+                    size={20}
+                    color='#fff'
+                    style={styles.deleteIcon}
+                  />
+                  <Text style={styles.deleteButtonText}>
+                    Delete Account
+                  </Text>
+                </>
+              )}
+            </TouchableOpacity>
+
+            {/* Warning Text */}
+            <View style={styles.warningContainer}>
+              <MaterialIcons
+                name='warning'
+                size={16}
+                color='#dc3545'
+              />
+              <Text style={styles.warningText}>
+                Deleting your account will permanently remove all your
+                data including wallet balance and addresses.
+              </Text>
+            </View>
+
+            {/* Policy Links Section */}
+            <View style={styles.policyLinksContainer}>
+              <Text style={styles.policySectionTitle}>
+                Kanifnath Corporates (India) Pvt Ltd.
+              </Text>
+              <Text style={styles.policySectionSubtitle}>
+                Policies & Legal Information
+              </Text>
+
+              <TouchableOpacity
+                style={styles.policyLink}
+                onPress={() =>
+                  navigation.navigate('TermsAndConditions')
+                }
+              >
+                <MaterialIcons
+                  name='description'
+                  size={20}
+                  color='#28a745'
+                />
+                <Text style={styles.policyLinkText}>
+                  Terms & Conditions
+                </Text>
+                <MaterialIcons
+                  name='chevron-right'
+                  size={24}
+                  color='#666'
+                />
+              </TouchableOpacity>
+
+              <TouchableOpacity
+                style={styles.policyLink}
+                onPress={() => navigation.navigate('PrivacyPolicy')}
+              >
+                <MaterialIcons
+                  name='privacy-tip'
+                  size={20}
+                  color='#28a745'
+                />
+                <Text style={styles.policyLinkText}>
+                  Privacy Policy
+                </Text>
+                <MaterialIcons
+                  name='chevron-right'
+                  size={24}
+                  color='#666'
+                />
+              </TouchableOpacity>
+
+              <TouchableOpacity
+                style={styles.policyLink}
+                onPress={() => navigation.navigate('ShippingPolicy')}
+              >
+                <MaterialIcons
+                  name='local-shipping'
+                  size={20}
+                  color='#28a745'
+                />
+                <Text style={styles.policyLinkText}>
+                  Shipping & Delivery Policy
+                </Text>
+                <MaterialIcons
+                  name='chevron-right'
+                  size={24}
+                  color='#666'
+                />
+              </TouchableOpacity>
+
+              <TouchableOpacity
+                style={styles.policyLink}
+                onPress={() => navigation.navigate('RefundPolicy')}
+              >
+                <MaterialIcons
+                  name='monetization-on'
+                  size={20}
+                  color='#28a745'
+                />
+                <Text style={styles.policyLinkText}>
+                  Refund & Cancellation Policy
+                </Text>
+                <MaterialIcons
+                  name='chevron-right'
+                  size={24}
+                  color='#666'
+                />
+              </TouchableOpacity>
+
+              {/* Company Contact Details */}
+              <View style={styles.contactDetailsContainer}>
+                <Text style={styles.contactDetailsTitle}>
+                  Contact Information
+                </Text>
+                <View style={styles.contactDetailItem}>
+                  <MaterialIcons
+                    name='business'
+                    size={16}
+                    color='#666'
+                  />
+                  <Text style={styles.contactDetailText}>
+                    Merchant Legal entity name: Kanifnath Corporates
+                    (India) Pvt Ltd.
+                  </Text>
+                </View>
+                <View style={styles.contactDetailItem}>
+                  <MaterialIcons
+                    name='location-on'
+                    size={16}
+                    color='#666'
+                  />
+                  <Text style={styles.contactDetailText}>
+                    Registered Address: At post Sr no 10 D-1003 Sun
+                    Exotica yewalewadi Kondhwa BK, Pune City, Pune
+                    411048
+                  </Text>
+                </View>
+                <View style={styles.contactDetailItem}>
+                  <MaterialIcons
+                    name='store'
+                    size={16}
+                    color='#666'
+                  />
+                  <Text style={styles.contactDetailText}>
+                    Operational Address: Shop No:24, Floor No:Ground,
+                    Building Name:The Atrium Building, Block - C
+                    Sector:Mundhava 411036, Road:Mundhava Shinde
+                    Wasti, City:Mundhava, Dist - Pune
+                  </Text>
+                </View>
+                <View style={styles.contactDetailItem}>
+                  <MaterialIcons
+                    name='phone'
+                    size={16}
+                    color='#666'
+                  />
+                  <Text style={styles.contactDetailText}>
+                    Telephone No: 7020278390
+                  </Text>
+                </View>
+                <View style={styles.contactDetailItem}>
+                  <MaterialIcons
+                    name='email'
+                    size={16}
+                    color='#666'
+                  />
+                  <Text style={styles.contactDetailText}>
+                    E-Mail ID: kanifnathindia@gmail.com
+                  </Text>
+                </View>
+              </View>
+            </View>
+
+            {/* Company Footer */}
+            <View style={styles.companyFooter}>
+              <Text style={styles.companyName}>
+                Kanifnath Corporates (India) Pvt Ltd.
+              </Text>
+              <Text style={styles.companyDetails}>
+                Registered Office: At post Sr no 10 D-1003 Sun Exotica
+                yewalewadi Kondhwa BK, Pune City, Pune 411048
+              </Text>
+              <Text style={styles.companyDetails}>
+                Email: kanifnathindia@gmail.com | Phone: 7020278390
+              </Text>
+              <Text style={styles.copyright}>
+                © {new Date().getFullYear()} Kanifnath Corporates. All
+                rights reserved.
+              </Text>
+            </View>
+          </ScrollView>
+        </View>
       ) : (
-        <View style={styles.loginContainer}>
-          <TouchableOpacity
-            style={styles.loginButton}
-            onPress={openDrawer}
-          >
-            <Text style={styles.logoutButtonText}>
-              Register / Login
-            </Text>
-          </TouchableOpacity>
+        <View style={styles.guestWrapper}>
+          <View style={styles.guestContent}>
+            <TouchableOpacity
+              style={styles.loginButton}
+              onPress={openDrawer}
+            >
+              <Text style={styles.logoutButtonText}>
+                Register / Login
+              </Text>
+            </TouchableOpacity>
+
+            {/* Policy Links for Non-logged in Users */}
+            <ScrollView
+              style={styles.guestScrollView}
+              contentContainerStyle={styles.guestScrollContainer}
+              showsVerticalScrollIndicator={true}
+            >
+              <View style={styles.guestPolicyLinksContainer}>
+                <Text style={styles.guestPolicyTitle}>
+                  Kanifnath Corporates (India) Pvt Ltd.
+                </Text>
+
+                <TouchableOpacity
+                  style={styles.guestPolicyLink}
+                  onPress={() =>
+                    navigation.navigate('TermsAndConditions')
+                  }
+                >
+                  <MaterialIcons
+                    name='description'
+                    size={18}
+                    color='#28a745'
+                  />
+                  <Text style={styles.guestPolicyLinkText}>
+                    Terms & Conditions
+                  </Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity
+                  style={styles.guestPolicyLink}
+                  onPress={() => navigation.navigate('PrivacyPolicy')}
+                >
+                  <MaterialIcons
+                    name='privacy-tip'
+                    size={18}
+                    color='#28a745'
+                  />
+                  <Text style={styles.guestPolicyLinkText}>
+                    Privacy Policy
+                  </Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity
+                  style={styles.guestPolicyLink}
+                  onPress={() =>
+                    navigation.navigate('ShippingPolicy')
+                  }
+                >
+                  <MaterialIcons
+                    name='local-shipping'
+                    size={18}
+                    color='#28a745'
+                  />
+                  <Text style={styles.guestPolicyLinkText}>
+                    Shipping & Delivery Policy
+                  </Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity
+                  style={styles.guestPolicyLink}
+                  onPress={() => navigation.navigate('RefundPolicy')}
+                >
+                  <MaterialIcons
+                    name='monetization-on'
+                    size={18}
+                    color='#28a745'
+                  />
+                  <Text style={styles.guestPolicyLinkText}>
+                    Cancellation & Refund Policy
+                  </Text>
+                </TouchableOpacity>
+
+                {/* Company Contact Details for Guest Users */}
+                <View style={styles.guestContactDetailsContainer}>
+                  <Text style={styles.guestContactDetailsTitle}>
+                    Contact Information
+                  </Text>
+                  <Text style={styles.guestContactDetailText}>
+                    <Text style={styles.guestContactDetailLabel}>
+                      Registered Address:{' '}
+                    </Text>
+                    At post Sr no 10 D-1003 Sun Exotica yewalewadi
+                    Kondhwa BK, Pune City, Pune 411048
+                  </Text>
+                  <Text style={styles.guestContactDetailText}>
+                    <Text style={styles.guestContactDetailLabel}>
+                      Operational Address:{' '}
+                    </Text>
+                    Shop No:24, Floor No:Ground, Building Name:The
+                    Atrium Building, Block - C Sector:Mundhava 411036,
+                    Road:Mundhava Shinde Wasti, City:Mundhava, Dist -
+                    Pune
+                  </Text>
+                  <Text style={styles.guestContactDetailText}>
+                    <Text style={styles.guestContactDetailLabel}>
+                      Telephone:{' '}
+                    </Text>
+                    7020278390
+                  </Text>
+                  <Text style={styles.guestContactDetailText}>
+                    <Text style={styles.guestContactDetailLabel}>
+                      Email:{' '}
+                    </Text>
+                    kanifnathindia@gmail.com
+                  </Text>
+                </View>
+
+                <View style={styles.guestCompanyFooter}>
+                  <Text style={styles.guestCompanyName}>
+                    Kanifnath Corporates (India) Pvt Ltd.
+                  </Text>
+                  <Text style={styles.guestCompanyDetails}>
+                    © {new Date().getFullYear()} All rights reserved.
+                  </Text>
+                </View>
+              </View>
+            </ScrollView>
+          </View>
         </View>
       )}
 
@@ -881,18 +1181,38 @@ const ProfileScreen = ({ navigation, onSubmit }) => {
 };
 
 const styles = StyleSheet.create({
-  container: {
+  mainContainer: {
     flex: 1,
     backgroundColor: '#f0f4f8',
   },
-  scrollContainer: {
-    flexGrow: 1,
-    padding: 20,
+  contentWrapper: {
+    flex: 1,
   },
-  loginContainer: {
+  guestWrapper: {
+    flex: 1,
+  },
+  guestContent: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    marginTop: 100,
+    marginBottom: 30,
+  },
+  scrollView: {
+    flex: 1,
+  },
+  guestScrollView: {
+    flex: 1,
+    width: '100%',
+  },
+  scrollContainer: {
+    padding: 20,
+    paddingBottom: 40, // Extra padding at bottom for better scrolling
+  },
+  guestScrollContainer: {
+    paddingHorizontal: 20,
+    paddingBottom: 40,
+    flexGrow: 1,
   },
   infoSection: {
     backgroundColor: '#fff',
@@ -903,6 +1223,7 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 3 },
     shadowRadius: 6,
     elevation: 3,
+    marginBottom: 15,
   },
   infoBox: {
     marginBottom: 16,
@@ -932,6 +1253,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     borderRadius: 8,
     alignItems: 'center',
+    marginVertical: 30,
+    marginBottom: 100,
   },
   logoutButtonText: {
     color: '#fff',
@@ -1202,6 +1525,176 @@ const styles = StyleSheet.create({
     marginLeft: 8,
     flex: 1,
     lineHeight: 16,
+  },
+  // Policy Links Styles
+  policyLinksContainer: {
+    backgroundColor: '#fff',
+    borderRadius: 12,
+    padding: 20,
+    marginTop: 20,
+    marginBottom: 20,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 2,
+  },
+  policySectionTitle: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    color: '#28a745',
+    marginBottom: 5,
+    textAlign: 'center',
+  },
+  policySectionSubtitle: {
+    fontSize: 14,
+    color: '#666',
+    marginBottom: 20,
+    textAlign: 'center',
+  },
+  policyLink: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingVertical: 12,
+    borderBottomWidth: 1,
+    borderBottomColor: '#f0f0f0',
+  },
+  policyLinkText: {
+    flex: 1,
+    marginLeft: 12,
+    fontSize: 15,
+    color: '#333',
+  },
+  // Contact Details Styles
+  contactDetailsContainer: {
+    marginTop: 20,
+    paddingTop: 15,
+    borderTopWidth: 1,
+    borderTopColor: '#f0f0f0',
+  },
+  contactDetailsTitle: {
+    fontSize: 16,
+    fontWeight: '600',
+    color: '#28a745',
+    marginBottom: 15,
+    textAlign: 'center',
+  },
+  contactDetailItem: {
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    marginBottom: 12,
+  },
+  contactDetailText: {
+    flex: 1,
+    marginLeft: 10,
+    fontSize: 13,
+    color: '#555',
+    lineHeight: 18,
+  },
+  companyFooter: {
+    backgroundColor: '#f8f9fa',
+    borderRadius: 12,
+    padding: 20,
+    marginTop: 10,
+    marginBottom: 30,
+    alignItems: 'center',
+  },
+  companyName: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    color: '#28a745',
+    marginBottom: 8,
+    textAlign: 'center',
+  },
+  companyDetails: {
+    fontSize: 12,
+    color: '#666',
+    marginBottom: 4,
+    textAlign: 'center',
+    lineHeight: 16,
+  },
+  copyright: {
+    fontSize: 11,
+    color: '#999',
+    marginTop: 10,
+    textAlign: 'center',
+  },
+  // Guest User Policy Links
+  guestPolicyLinksContainer: {
+    width: '100%',
+    backgroundColor: '#fff',
+    borderRadius: 12,
+    padding: 20,
+    marginTop: 10,
+    marginBottom: 30,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 2,
+  },
+  guestPolicyTitle: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    color: '#28a745',
+    marginBottom: 15,
+    textAlign: 'center',
+  },
+  guestPolicyLink: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingVertical: 12,
+    borderBottomWidth: 1,
+    borderBottomColor: '#f0f0f0',
+  },
+  guestPolicyLinkText: {
+    flex: 1,
+    marginLeft: 12,
+    fontSize: 15,
+    color: '#333',
+  },
+  // Guest Contact Details
+  guestContactDetailsContainer: {
+    marginTop: 20,
+    paddingTop: 15,
+    borderTopWidth: 1,
+    borderTopColor: '#f0f0f0',
+  },
+  guestContactDetailsTitle: {
+    fontSize: 16,
+    fontWeight: '600',
+    color: '#28a745',
+    marginBottom: 12,
+    textAlign: 'center',
+  },
+  guestContactDetailText: {
+    fontSize: 13,
+    color: '#555',
+    marginBottom: 8,
+    lineHeight: 18,
+  },
+  guestContactDetailLabel: {
+    fontWeight: '600',
+    color: '#333',
+  },
+  guestCompanyFooter: {
+    marginTop: 20,
+    paddingTop: 15,
+    borderTopWidth: 1,
+    borderTopColor: '#f0f0f0',
+    alignItems: 'center',
+  },
+  guestCompanyName: {
+    fontSize: 14,
+    fontWeight: 'bold',
+    color: '#28a745',
+    marginBottom: 5,
+    textAlign: 'center',
+  },
+  guestCompanyDetails: {
+    fontSize: 12,
+    color: '#666',
+    textAlign: 'center',
   },
 });
 

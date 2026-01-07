@@ -153,7 +153,17 @@ const CashfreePayment = ({
       const paidAmount = parseFloat(amount).toFixed(2);
 
       console.log('Creating Cashfree order for amount:', paidAmount);
-      console.log('User details:', userDetails);
+      console.log('User details:', {
+        amount: parseFloat(paidAmount),
+        currency: 'INR',
+        customerDetails: {
+          customerId:
+            String(userDetails?.id) || `guest_${Date.now()}`,
+          customerEmail: userDetails?.email || 'customer@example.com',
+          customerPhone: userDetails?.phoneNumber || '9999999999',
+          customerName: userDetails?.name || 'Customer',
+        },
+      });
 
       const orderResponse = await httpClient.post(
         '/api/payment-requests/create-cashfree-order',
