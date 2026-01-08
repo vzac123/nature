@@ -1,8 +1,8 @@
 {
   "expo": {
     "name": "NatureDailyNew1766060820852",
-    "slug": "nature-dairy-1766060892029",
-    "owner": "pratham1188",
+    "slug": "nature-dairy-v2",
+    "owner": "masterzac",
     "version": "1.0.1",
     "orientation": "portrait",
     "icon": "./assets/nature_logo.png",
@@ -12,7 +12,9 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
       "bundleIdentifier": "com.masterzac.naturedaily",
       "buildNumber": "2",
@@ -30,6 +32,7 @@
     },
     "android": {
       "package": "com.masterzac.myapp",
+      "versionCode": 15,
       "adaptiveIcon": {
         "foregroundImage": "./assets/nature_logo.png",
         "backgroundColor": "#FFFFFF"
@@ -55,15 +58,15 @@
       "expo-font",
       "@react-native-community/datetimepicker"
     ],
-    "extra": {
-      "eas": {
-        "projectId": "d6b5a906-217f-463e-b13d-429f6b6ca336"
-      }
-    },
     "runtimeVersion": "1.0.0",
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "jsEngine": "hermes"
+    "jsEngine": "hermes",
+    "extra": {
+      "eas": {
+        "projectId": "377f0c26-7046-465c-9b8d-28af3c9176a3"
+      }
+    }
   }
 }

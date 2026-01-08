@@ -1,15 +1,14 @@
 {
   "cli": {
     "version": ">= 13.2.0",
-    "appVersionSource": "local"
+    "appVersionSource": "remote"
   },
   "build": {
     "development": {
       "developmentClient": true,
       "distribution": "internal",
       "android": {
-        "buildType": "apk",
-        "versionCode": 15
+        "buildType": "apk"
       }
     },
     "preview": {
