@@ -30,7 +30,7 @@
     },
     "android": {
       "package": "com.masterzac.myapp",
-      "versionCode": 9,
+      "versionCode": 15,
       "adaptiveIcon": {
         "foregroundImage": "./assets/nature_logo.png",
         "backgroundColor": "#FFFFFF"
