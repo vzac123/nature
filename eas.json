@@ -22,7 +22,9 @@
     },
     "production": {
       "android": {
-        "buildType": "app-bundle"
+        "buildType": "app-bundle",
+        "gradleCommand": ":app:clean :app:bundleRelease",
+        "image": "latest"
       },
       "env": {
         "NODE_OPTIONS": "--max-old-space-size=4096",

@@ -2,7 +2,7 @@
   "expo": {
     "name": "NatureDailyNew1766060820852",
     "slug": "nature-dairy-v2",
-    "owner": "pratham1188",
+    "owner": "prathams1188",
     "version": "1.0.1",
     "orientation": "portrait",
     "icon": "./assets/nature_logo.png",
@@ -30,7 +30,7 @@
     },
     "android": {
       "package": "com.masterzac.myapp",
-      "versionCode": 19,
+      "versionCode": 20,
       "adaptiveIcon": {
         "foregroundImage": "./assets/nature_logo.png",
         "backgroundColor": "#FFFFFF"
@@ -49,7 +49,14 @@
             "targetSdkVersion": 35,
             "buildToolsVersion": "34.0.0",
             "composeCompilerVersion": "1.5.15",
-            "enable16KBPageSize": true
+            "newArchEnabled": false,
+            "enableProguardInReleaseBuilds": false,
+            "enableShrinkResourcesInReleaseBuilds": false,
+            "packagingOptions": {
+              "jniLibs": {
+                "useLegacyPackaging": false
+              }
+            }
           }
         }
       ],
@@ -62,6 +69,10 @@
       "fallbackToCacheTimeout": 0
     },
     "jsEngine": "hermes",
-    "extra": {}
+    "extra": {
+      "eas": {
+        "projectId": "344b82a3-3402-455a-8e30-370657268378"
+      }
+    }
   }
 }
