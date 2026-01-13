@@ -29,22 +29,12 @@ android {
         applicationId 'com.masterzac.myapp'
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 18
-        versionName "1.0.2"
+        versionCode 19
+        versionName "1.0.3"
         
         // Add NDK ABI filters for 16 KB page size support
         ndk {
             abiFilters 'armeabi-v7a', 'arm64-v8a', 'x86', 'x86_64'
-        }
-    }
-    
-    // CRITICAL: Add splits block for 16 KB page size support
-    splits {
-        abi {
-            enable true
-            reset()
-            include 'armeabi-v7a', 'arm64-v8a', 'x86', 'x86_64'
-            universalApk true
         }
     }
     
