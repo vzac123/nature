@@ -2,7 +2,7 @@
   "expo": {
     "name": "NatureDailyNew1766060820852",
     "slug": "nature-dairy-v2",
-    "owner": "masterzac",
+    "owner": "pratham1188",
     "version": "1.0.1",
     "orientation": "portrait",
     "icon": "./assets/nature_logo.png",
@@ -62,10 +62,6 @@
       "fallbackToCacheTimeout": 0
     },
     "jsEngine": "hermes",
-    "extra": {
-      "eas": {
-        "projectId": "377f0c26-7046-465c-9b8d-28af3c9176a3"
-      }
-    }
+    "extra": {}
   }
 }
