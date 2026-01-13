@@ -15,6 +15,9 @@
       "distribution": "internal",
       "android": {
         "buildType": "apk"
+      },
+      "env": {
+        "EAS_BUILD_DISABLE_MAVEN_CACHE": "1"
       }
     },
     "production": {
@@ -22,7 +25,8 @@
         "buildType": "app-bundle"
       },
       "env": {
-        "NODE_OPTIONS": "--max-old-space-size=4096"
+        "NODE_OPTIONS": "--max-old-space-size=4096",
+        "EAS_BUILD_DISABLE_MAVEN_CACHE": "1"
       }
     }
   },
