@@ -91,9 +91,26 @@ android {
         applicationId 'com.masterzac.myapp'
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 16
+        versionCode 17
         versionName "1.0.1"
+
+        // Add this for 16 KB page size support
+        ndk {
+            abiFilters 'armeabi-v7a', 'arm64-v8a', 'x86', 'x86_64'
+        }
     }
+
+
+ // Add this splits configuration for 16 KB support
+    splits {
+        abi {
+            enable true 
+            reset()
+            include 'armeabi-v7a', 'arm64-v8a', 'x86', 'x86_64'
+            universalApk true
+        }
+    }
+
     signingConfigs {
         debug {
             storeFile file('debug.keystore')

@@ -30,7 +30,7 @@
     },
     "android": {
       "package": "com.masterzac.myapp",
-      "versionCode": 16,
+      "versionCode": 17,
       "adaptiveIcon": {
         "foregroundImage": "./assets/nature_logo.png",
         "backgroundColor": "#FFFFFF"
@@ -48,7 +48,8 @@
             "compileSdkVersion": 35,
             "targetSdkVersion": 35,
             "buildToolsVersion": "34.0.0",
-            "composeCompilerVersion": "1.5.15"
+            "composeCompilerVersion": "1.5.15",
+            "enable16KBPageSize": true
           }
         }
       ],
